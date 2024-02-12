@@ -4,7 +4,7 @@ import { Dialog } from '@headlessui/react';
 
 const NotesCard = () => {
 
-  const [isModalOpen, setModalOpen] = useState(true);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const openNotesModal = () => {
     setModalOpen(true);
@@ -46,9 +46,9 @@ const NotesCard = () => {
     <div className="flex-col">
       <div className=" flex justify-between mt-10 mx-10 lg:mx-20">
         <h1 className="text-3xl text-blue-950 font-bold">Notes</h1>
-        <MdAddCircle className="size-7" onClick={openNotesModal} />
+        <MdAddCircle className="size-7 cursor-pointer" onClick={openNotesModal} />
       </div>
-
+    {isModalOpen && (
       <Dialog
         open={isModalOpen}
         onClose={closeNotesModal}
@@ -93,7 +93,7 @@ const NotesCard = () => {
         </div>
         </div> 
         </Dialog>
-    
+      )}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {notes.map((note) => (
           <div
