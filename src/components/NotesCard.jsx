@@ -12,6 +12,7 @@ const NotesCard = () => {
 
   const closeNotesModal = () => {
     setModalOpen(false);
+    setNewNote('');
   };
   
   const [newNote, setNewNote] = useState("");
@@ -45,8 +46,8 @@ const NotesCard = () => {
   return (
     <div className="flex-col">
       <div className=" flex justify-between mt-10 mx-10 lg:mx-20">
-        <h1 className="text-3xl text-blue-950 font-bold">Notes</h1>
-        <MdAddCircle className="size-7 cursor-pointer" onClick={openNotesModal} />
+        <h1 className=" text-4xl lg:text-3xl text-blue-950 font-bold">Notes</h1>
+        <MdAddCircle className=" size-9 lg:size-7 cursor-pointer mt-1.5" onClick={openNotesModal} />
       </div>
     {isModalOpen && (
       <Dialog
@@ -67,8 +68,8 @@ const NotesCard = () => {
                 onChange={handleNoteChange}
                 value={newNote}
               />
-              {newNote && newNote.length <= 4 && <p className="text-red-500 mb-2">Notes should be atleast 4 characters</p>}
-              {newNote && newNote.length > 120 && <p className="text-red-500 mb-2">Notes should be utmost 120 characters</p>}
+              {newNote && newNote.trim().length <= 4 && <p className="text-red-500 mb-2">Notes should be atleast 4 characters</p>}
+              {newNote && newNote.trim().length > 120 && <p className="text-red-500 mb-2">Notes should be utmost 120 characters</p>}
               <button
                 type="submit"
                 className="w-full rounded-lg shadow-xl py-1 text-white bg-violet-800 hover:bg-violet-600 disabled:bg-slate-300"
@@ -77,7 +78,7 @@ const NotesCard = () => {
                   closeNotesModal()
                 }
                 }
-                disabled={newNote && newNote.length > 120}
+                disabled={newNote && newNote.trim().length > 120 || newNote.trim().length < 4}
               >
                 Add note
               </button>
