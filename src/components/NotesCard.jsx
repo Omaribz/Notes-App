@@ -80,7 +80,7 @@ const NotesCard = () => {
                 }
                 disabled={newNote && newNote.trim().length > 120 || newNote.trim().length < 4}
               >
-                Add note
+                Add
               </button>
               <button
                 type="button"
