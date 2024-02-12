@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { MdAddCircle } from "react-icons/md";
-// import { IoMdClose } from "react-icons/io";
+import { Dialog } from '@headlessui/react';
 
 const NotesCard = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
+
+  const [isModalOpen, setModalOpen] = useState(true);
 
   const openNotesModal = () => {
     setModalOpen(true);
@@ -42,15 +43,20 @@ const NotesCard = () => {
   };
 
   return (
-    <div className="block mx-auto">
-      <div className=" mx-auto flex justify-between items-center mt-10 ml-8 space-x-20 lg:space-x-96">
-        <h1 className="text-3xl text-blue-950 font-bold mr-20 sm:mr-10">Notes</h1>
+    <div className="flex-col">
+      <div className=" flex justify-between mt-10 mx-10 lg:mx-20">
+        <h1 className="text-3xl text-blue-950 font-bold">Notes</h1>
         <MdAddCircle className="size-7" onClick={openNotesModal} />
       </div>
 
-      {isModalOpen && (
-        <div className="flex items-center justify-center mt-10">
-          <div className=" mx-auto rounded-2xl bg-white shadow-xl p-5 max-w-md w-full">
+      <Dialog
+        open={isModalOpen}
+        onClose={closeNotesModal}
+        className="relative z-50"
+      >
+        <div className="fixed inset-0 bg-black/70" aria-hidden="true">
+        <div className="flex mt-24">
+          <div className="rounded-2xl bg-white shadow-xl p-5  mx-auto max-w-lg w-11/12">
             <form>
               <textarea
                 placeholder="Write your notes here.."
@@ -61,11 +67,11 @@ const NotesCard = () => {
                 onChange={handleNoteChange}
                 value={newNote}
               />
-              {newNote && newNote.length <= 4 && <p className="text-red-500 mb-2">Notes should be greater than 4</p>}
-              {newNote && newNote.length > 120 && <p className="text-red-500 mb-2">notes should not be greater than 120</p>}
+              {newNote && newNote.length <= 4 && <p className="text-red-500 mb-2">Notes should be atleast 4 characters</p>}
+              {newNote && newNote.length > 120 && <p className="text-red-500 mb-2">Notes should be utmost 120 characters</p>}
               <button
                 type="submit"
-                className="w-full rounded-lg shadow-xl py-1 text-white bg-violet-800 hover:bg-violet-600"
+                className="w-full rounded-lg shadow-xl py-1 text-white bg-violet-800 hover:bg-violet-600 disabled:bg-slate-300"
                 onClick={() =>{
                   addNote(),
                   closeNotesModal()
@@ -84,13 +90,15 @@ const NotesCard = () => {
               </button>
             </form>
           </div>
+        </div>
         </div> 
-      )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        </Dialog>
+    
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {notes.map((note) => (
           <div
             key={note.id}
-            className={`relative m-4 p-2 rounded-lg shadow-lg ${note.color} w-[250px] h-[250px] mt-10`}
+            className={`relative mx-auto p-2 rounded-lg ${note.color} w-[250px] h-[250px] mt-4`}
           >
             <p className="text-lg font-semibold break-words">{note.content}</p>
             <p className="absolute bottom-5 text-sm font-semibold text-gray-600 ">{note.time}</p>
