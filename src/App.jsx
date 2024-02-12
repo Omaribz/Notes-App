@@ -1,6 +1,5 @@
 import NotesCard from "./components/NotesCard";
 
-
 function App() {
   return (
     <>

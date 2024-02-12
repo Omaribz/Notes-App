@@ -41,11 +41,6 @@ const NotesCard = () => {
     }
   };
 
-  // const removeNote = (id) => {
-  //   const updatedNotes = notes.filter((note) => note.id !== id);
-  //   setNotes(updatedNotes);
-  // };
-
   return (
     <div className="block mx-auto">
       <div className=" mx-auto flex justify-between items-center mt-10 ml-8 space-x-20 lg:space-x-96">
@@ -66,21 +61,23 @@ const NotesCard = () => {
                 onChange={handleNoteChange}
                 value={newNote}
               />
-              {newNote && newNote.length <= 10 && <p className="text-red-500 mb-2">notes should be greater than 10</p>}
+              {newNote && newNote.length <= 4 && <p className="text-red-500 mb-2">Notes should be greater than 4</p>}
+              {newNote && newNote.length > 120 && <p className="text-red-500 mb-2">notes should not be greater than 120</p>}
               <button
                 type="submit"
-                className="w-full rounded-lg shadow-xl py-1 text-white bg-violet-800"
+                className="w-full rounded-lg shadow-xl py-1 text-white bg-violet-800 hover:bg-violet-600"
                 onClick={() =>{
                   addNote(),
                   closeNotesModal()
                 }
                 }
+                disabled={newNote && newNote.length > 120}
               >
                 Add note
               </button>
               <button
                 type="button"
-                className=" w-full rounded-lg shadow-xl py-1 text-white bg-red-700 mt-2"
+                className=" w-full rounded-lg shadow-xl py-1 text-white bg-red-700 hover:bg-red-500 mt-2"
                 onClick={closeNotesModal}
               >
                 Close
@@ -97,16 +94,6 @@ const NotesCard = () => {
           >
             <p className="text-lg font-semibold break-words">{note.content}</p>
             <p className="absolute bottom-5 text-sm font-semibold text-gray-600 ">{note.time}</p>
-              {/* <button
-                type="button"
-                aria-label="button"
-                onClick={() => removeNote(note.id)}
-              >
-                <IoMdClose
-                  size={18}
-                  className="font-extrabold text-neutral-dark absolute right-20 top-7"
-                />
-              </button> */}
           </div>
         ))}
       </div>
