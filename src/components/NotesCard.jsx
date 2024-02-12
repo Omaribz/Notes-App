@@ -29,18 +29,12 @@ const NotesCard = () => {
 
   const addNote = () => {
     if (newNote.trim() !== '') {
-      const date = new Date();
-
-      let day = date.getDate();
-      let month = date.getMonth() + 1;
-      let year = date.getFullYear();
-
-      let currentDate = `${month}/${day}/${year}`;
+      const currentTime = new Date().toLocaleString();
       const newNoteObj = {
         id: Math.random(),
         content: newNote,
         color: generateRandomColor(),
-        date: currentDate,
+        time: currentTime
       };
       setNotes([...notes, newNoteObj]);
       setNewNote('');
@@ -102,7 +96,7 @@ const NotesCard = () => {
             className={`relative m-4 p-2 rounded-lg shadow-lg ${note.color} w-[250px] h-[250px] mt-10`}
           >
             <p className="text-lg font-semibold break-words">{note.content}</p>
-            <p className="absolute bottom-5 text-sm font-semibold text-gray-600 ">{note.date}</p>
+            <p className="absolute bottom-5 text-sm font-semibold text-gray-600 ">{note.time}</p>
               {/* <button
                 type="button"
                 aria-label="button"
